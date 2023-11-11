@@ -88,103 +88,15 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        
     release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
-
-    release {
-        storeFile file('my-release-key')
-        storePassword '12345678'
-        keyAlias 'my-key-alias'
-        keyPassword '12345678'
-    }
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
 
     }
     buildTypes {
@@ -197,6 +109,7 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        signingConfig signingConfigs.release
         }
     }
 }
