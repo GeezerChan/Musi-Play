@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, Alert } from 'react-native';
+import { View, Text, TextInput, Button, FlatList, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
 
 const LastFmScreen = ({ navigation }) => {
@@ -49,35 +49,40 @@ const LastFmScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button title="BACK" onPress={() => navigation.goBack()} />
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.buttonText}>BACK</Text>
+      </TouchableOpacity>
 
-      <Text>Artist Name:</Text>
+      <Text style={styles.heading}>Artist Name:</Text>
 
       <TextInput
         placeholder="Enter artist name"
         value={artist}
         onChangeText={(text) => setArtist(text)}
-        style={{ borderColor: 'gray', borderWidth: 1, marginBottom: 10, padding: 5 }}
+        style={styles.input}
       />
 
       {isSongsFetched && (
-        <Button
-          title="Artist Description"
+        <TouchableOpacity
+          style={styles.descriptionButton}
           onPress={() => navigation.navigate('ArtistDescription', { artistDescription })}
-          style={{ marginVertical: 10 }}
-        />
+        >
+          <Text style={styles.buttonText}>Artist Description</Text>
+        </TouchableOpacity>
       )}
 
-      <Button title="Fetch Songs" onPress={fetchLastFmData} />
+      <TouchableOpacity style={styles.fetchButton} onPress={fetchLastFmData}>
+        <Text style={styles.buttonText}>Fetch Songs</Text>
+      </TouchableOpacity>
 
       {isSongsFetched && (
         <FlatList
           data={songs}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <View style={{ marginVertical: 5 }}>
-              <Text>Song: {item.name}</Text>
+            <View style={styles.songContainer}>
+              <Text style={styles.songText}>Song: {item.name}</Text>
             </View>
           )}
         />
@@ -85,5 +90,60 @@ const LastFmScreen = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'silver',
+  },
+  backButton: {
+    backgroundColor: '#3498db',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  heading: {
+    fontSize: 18,
+    marginVertical: 10,
+  },
+  input: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    padding: 5,
+    width: '80%',
+    textAlign: 'center',
+    backgroundColor: '#2ecc71',
+  },
+  descriptionButton: {
+    backgroundColor: '#2ecc71',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  fetchButton: {
+    backgroundColor: '#e74c3c',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  songContainer: {
+    marginVertical: 5,
+  },
+  songText: {
+    fontSize: 16,
+  },
+});
 
 export default LastFmScreen;

@@ -1,15 +1,34 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
 const ArtistDescriptionScreen = ({ route }) => {
   const { artistDescription } = route.params;
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Artist Description</Text>
-      <Text>{artistDescription}</Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Artist Description</Text>
+      <Text style={styles.description}>{artistDescription}</Text>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: 'silver',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+});
 
 export default ArtistDescriptionScreen;

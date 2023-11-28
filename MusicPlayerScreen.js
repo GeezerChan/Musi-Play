@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Button, Text, Linking, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { request, PERMISSIONS } from 'react-native-permissions';
 import DocumentPicker from 'react-native-document-picker';
 import Sound from 'react-native-sound';
@@ -14,7 +14,7 @@ const MusicPlayer = ({ navigation }) => {
   const requestStoragePermission = async () => {
     try {
       const result = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
-  
+
       if (result === 'granted') {
         // Permission granted, proceed with the operation
         loadSongs();
@@ -30,30 +30,29 @@ const MusicPlayer = ({ navigation }) => {
       setShowPermissionDenied(true);
     }
   };
-  
 
   const loadSongs = async () => {
     try {
       const result = await DocumentPicker.pick({
         type: [DocumentPicker.types.audio],
       });
-  
+
       console.log('Document Picker Result:', result);
-  
+
       if (result.uri) {
         const allowedExtensions = ['.mp3', '.wav'];
         const fileExtension =
           result.name && result.name.lastIndexOf('.') !== -1
             ? result.name.slice(result.name.lastIndexOf('.')).toLowerCase()
             : '';
-  
+
         console.log('File Extension:', fileExtension);
-  
+
         if (!allowedExtensions.includes(fileExtension)) {
           console.log('Invalid file type selected');
           return;
         }
-  
+
         const sound = new Sound(result.uri, '', (error) => {
           if (error) {
             console.error('Error loading sound', error);
@@ -74,18 +73,58 @@ const MusicPlayer = ({ navigation }) => {
       }
     }
   };
-  
-  
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button title="BACK" onPress={() => navigation.goBack()} />
-      <Button title="Load Songs" onPress={loadSongs} />
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.buttonText}>BACK</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loadSongsButton} onPress={loadSongs}>
+        <Text style={styles.buttonText}>Load Songs</Text>
+      </TouchableOpacity>
 
       {showPermissionDenied && (
-        <Text style={{ marginTop: 20 }}>Permission denied. You can't access music files without permission.</Text>
+        <Text style={styles.permissionDeniedText}>
+          Permission denied. You can't access music files without permission.
+        </Text>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'silver',
+  },
+  backButton: {
+    backgroundColor: '#3498db',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  loadSongsButton: {
+    backgroundColor: '#2ecc71',  // Change to green
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  permissionDeniedText: {
+    marginTop: 20,
+    color: 'red',
+    textAlign: 'center',
+  },
+});
 
 export default MusicPlayer;
