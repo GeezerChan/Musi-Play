@@ -1,38 +1,59 @@
-INFO: 
-*******
-This script MAY help you. You *should* have run "npx react-native doctor"
-and fixed the issues first. This may help you with issues there if you can't figure out why doctor is failing.
-      
-BUT DO NOT try to run-android without BOTH "doctor" and this script reporting success.
-      
-Note that "WARN:" does not mean "Error", it means "be sure this is correct."
-
-All output from this script will be logged to reactnative-fixup.txt
-*********** 
-      
-
-INFO: Found npm. [455]
-INFO: JAVA_HOME is set to C:\Program Files\Java\jdk-20 [656]
-INFO: JAVA_HOME points to an existing directory. [660]
-INFO: java is in your path. [636]
-INFO: Detected version "20.0.2" of Java. [727]
-INFO: Java version is correct. [731]
-INFO: java executable location matches up with JAVA_HOME. [672]
-INFO: SDK and JDK paths appear to be good. [710]
-INFO: Environment var(s) point to an Android SDK location C:\Users\Andy\AppData\Local\Android\Sdk. [775]
-INFO: Android SDK appears to exist. [779]
-INFO: (homebrew is not required on Windows) [500]
-INFO: Project is git-controlled. [464]
-INFO: We are in an NPM project. [474]
-INFO: We are really in a React-native project. [482]
-FATAL: expo is a dependency. This appears to be an expo project, not a React-Native CLI project dir. [495]
-INFO: Confirmed: this is not an expo rebuild/exported project. [516]
-INFO: Found adb. [584]
-INFO: (Watchman is not required on Windows.) [555]
-INFO: (ios-deploy is not required on Windows.) [569]
-INFO: (Cocoapods is not required on Windows.) [524]
-INFO: (xcode-select is not required on Windows.) [538]
-INFO: keytool is in path. [594]
-INFO: Found emulator. [609]
-INFO: Found current version of bundletool. [624]
-INFO: Correct NDK is installed. [796]
+INFO: Script is current version (1.4.1) [651]
+INFO: (Skipping show_newest_script_version) [1364]
+INFO: Found npm. [670]
+INFO: JAVA_HOME is set to C:\Program Files\Java\jdk-20 [685]
+INFO: JAVA_HOME points to an existing directory. [689]
+INFO: java is in your path. [699]
+INFO: Detected version "20.0.2" of Java. [722]
+INFO: Java version is correct. [726]
+INFO: java executable location matches up with JAVA_HOME. [743]
+INFO: Environment var(s) point to an Android SDK location C:\Users\Andy\AppData\Local\Android\Sdk. [760]
+INFO: Android SDK appears to exist. [764]
+INFO: SDK and JDK paths appear to be good. [802]
+INFO: (homebrew is not required on Windows) [809]
+INFO: Project is git-controlled. [826]
+INFO: We are in an NPM project. [841]
+INFO: We are really in a React-native project. [865]
+FATAL: expo is a dependency. This appears to be an expo project, not a React-Native CLI project dir. [878]
+INFO: Confirmed: this is not an expo rebuild/exported project. [887]
+INFO: (Cocoapods is not required on Windows.) [895]
+INFO: (xcode-select is not required on Windows.) [910]
+INFO: (Watchman is not required on Windows.) [928]
+INFO: (ios-deploy is not required on Windows.) [943]
+INFO: Found adb. [958]
+INFO: keytool is in path. [969]
+INFO: Found emulator. [980]
+INFO: bundletool destination folder of C:\Program Files\ exists. [994]
+FATAL: Current version of bundletool.jar does not exist. Please specify the correct path to it. [1000]
+INFO: The current (known) version is bundletool-all-1.15.6.jar [1001]
+vvvvvv HOW TO FIX vvvvvv
+* Browse to https://github.com/google/bundletool
+* Click on 'Releases'
+* Click on 'bundletool-all-1.15.6.jar'
+* Save it in Downloads
+* Copy it to C:\Program Files\
+^^^^^^ HOW TO FIX ^^^^^
+INFO: Checking [newest published] npm package versions... [1013]
+WARN: Expecting version ^2.13.4 of react-native-gesture-handler but found ^2.14.0 [1021]
+INFO: (Tell BJM or write an issue against this script on GitHub) [1028]
+INFO: ...Done checking npm package versions. [1030]
+FATAL: Command-line tools (latest) are not installed in Android SDK. [1038]
+INFO: Correct NDK is installed. [1044]
+INFO: Android SDK build-tools version 30.0.3 exists. [1056]
+INFO: Android SDK build-tools version 33.0.0 exists. [1056]
+INFO: Android SDK build-tools version 34.0.0 exists. [1056]
+INFO: (All build-tools versions exist) [1064]
+INFO: (JAVA_VERSION is not needed for Windows) [1074]
+INFO: Skipping add_kotlin_version_to_build_gradle ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping add_signing_config_to_app_build_gradle ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping add_keys_to_gradle_properties ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping modify_gradle_properties_release_section ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping modify_gradle_wrapper_distribution_url ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping add_gradle_java_home ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping add_universal_json_file ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping remove_tsx_and_create_app_js ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping modify_package_json_dependencies ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping create_assets_config ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping create_keystore ('modification' filtered out; previous test failure) [1368]
+INFO: Skipping create_prettierrc ('modification' filtered out; previous test failure) [1368]
+*** (1.4.1) Message type counts: 3 fatal, 1 warn, 0 error, 47 info, 1 fixes

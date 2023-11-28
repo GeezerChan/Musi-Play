@@ -11,9 +11,20 @@ const HomeScreen = ({ navigation }) => {
       />
 
       <Button
+        title="Music Player"
+        onPress={() => navigation.navigate('MusicPlayer')}
+        style={{ marginVertical: 20 }}
+      />
+
+      {/* <Button
         title="Spotify Token Test"
         onPress={() => navigation.navigate('SpotifyTest')}
         style={{ marginVertical: 20 }}
+      /> */}
+      <Button
+        title="About Me"
+        onPress={() => navigation.navigate('AboutMe')}
+        style={{ marginVertical: 20 }} // Add spacing above the button
       />
     </View>
   );

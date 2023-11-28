@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList } from 'react-native';
+import { View, Text, TextInput, Button, FlatList, Alert } from 'react-native';
 import axios from 'axios';
 
 const LastFmScreen = ({ navigation }) => {
@@ -10,7 +10,7 @@ const LastFmScreen = ({ navigation }) => {
 
   const fetchLastFmData = async () => {
     try {
-      const apiKey = 'a98d741db6be0811eb86b1836fbd2d53'; // Replace with your Last.fm API key
+      const apiKey = 'a98d741db6be0811eb86b1836fbd2d53';
       const [tracksResponse, artistInfoResponse] = await Promise.all([
         axios.get(
           `http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&api_key=${apiKey}&artist=${artist}&format=json`
@@ -20,6 +20,13 @@ const LastFmScreen = ({ navigation }) => {
         ),
       ]);
 
+      if (tracksResponse.data.error || artistInfoResponse.data.error) {
+        const errorMessage = tracksResponse.data.message || artistInfoResponse.data.message;
+        console.error('Error fetching Last.fm data:', errorMessage);
+        showAlert('Error', errorMessage);
+        return;
+      }
+
       const tracks = tracksResponse.data.toptracks.track;
       setSongs(tracks);
       setIsSongsFetched(true);
@@ -28,13 +35,23 @@ const LastFmScreen = ({ navigation }) => {
       setArtistDescription(artistInfo.bio.summary);
     } catch (error) {
       console.error('Error fetching Last.fm data:', error.message);
+      showAlert('Error', 'An unexpected error occurred. Please try again later.');
     }
+  };
+
+  const showAlert = (title, message) => {
+    Alert.alert(
+      title,
+      message,
+      [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+      { cancelable: false }
+    );
   };
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Button title="BACK" onPress={() => navigation.goBack()} />
-    
+
       <Text>Artist Name:</Text>
 
       <TextInput
@@ -43,17 +60,16 @@ const LastFmScreen = ({ navigation }) => {
         onChangeText={(text) => setArtist(text)}
         style={{ borderColor: 'gray', borderWidth: 1, marginBottom: 10, padding: 5 }}
       />
-        {isSongsFetched && (
+
+      {isSongsFetched && (
         <Button
           title="Artist Description"
           onPress={() => navigation.navigate('ArtistDescription', { artistDescription })}
           style={{ marginVertical: 10 }}
         />
       )}
-      <Button
-        title="Fetch Songs"
-        onPress={fetchLastFmData}
-      />
+
+      <Button title="Fetch Songs" onPress={fetchLastFmData} />
 
       {isSongsFetched && (
         <FlatList
@@ -62,12 +78,10 @@ const LastFmScreen = ({ navigation }) => {
           renderItem={({ item }) => (
             <View style={{ marginVertical: 5 }}>
               <Text>Song: {item.name}</Text>
-             </View>
+            </View>
           )}
         />
       )}
-
-      
     </View>
   );
 };

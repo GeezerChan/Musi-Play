@@ -5,7 +5,7 @@ import axios from 'axios';
 import { encode } from 'base-64';
 
 const CLIENT_ID = '37ae3dcff3c74b17a557bd64d8a8613b';
-const CLIENT_SECRET = '980a654edc17422d82c179d194784160';
+const CLIENT_SECRET = 'e1ee0ac0ea124c5c8d2734a9f6aff8e9';
 
 const SpotifyTest = ({ navigation }) => {
   const [accessToken, setAccessToken] = useState(null);
