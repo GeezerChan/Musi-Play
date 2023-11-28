@@ -2,7 +2,7 @@ import axios from 'axios';
 import { encode } from 'base-64';
 
 const CLIENT_ID = '37ae3dcff3c74b17a557bd64d8a8613b';
-const CLIENT_SECRET = '980a654edc17422d82c179d194784160';
+const CLIENT_SECRET = 'Removed for safety reasons';
 
 const getAccessToken = async () => {
   try {
