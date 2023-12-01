@@ -14,7 +14,7 @@ INFO: (homebrew is not required on Windows) [809]
 INFO: Project is git-controlled. [826]
 INFO: We are in an NPM project. [841]
 INFO: We are really in a React-native project. [865]
-FATAL: expo is a dependency. This appears to be an expo project, not a React-Native CLI project dir. [878]
+INFO: Confirmed: this is a CLI project. [876]
 INFO: Confirmed: this is not an expo rebuild/exported project. [887]
 INFO: (Cocoapods is not required on Windows.) [895]
 INFO: (xcode-select is not required on Windows.) [910]
@@ -35,6 +35,7 @@ vvvvvv HOW TO FIX vvvvvv
 ^^^^^^ HOW TO FIX ^^^^^
 INFO: Checking [newest published] npm package versions... [1013]
 WARN: Expecting version ^2.13.4 of react-native-gesture-handler but found ^2.14.0 [1021]
+WARN: Expecting version ^3.5.4 of react-native-reanimated but found ^3.6.0 [1021]
 INFO: (Tell BJM or write an issue against this script on GitHub) [1028]
 INFO: ...Done checking npm package versions. [1030]
 FATAL: Command-line tools (latest) are not installed in Android SDK. [1038]
@@ -56,4 +57,4 @@ INFO: Skipping modify_package_json_dependencies ('modification' filtered out; pr
 INFO: Skipping create_assets_config ('modification' filtered out; previous test failure) [1368]
 INFO: Skipping create_keystore ('modification' filtered out; previous test failure) [1368]
 INFO: Skipping create_prettierrc ('modification' filtered out; previous test failure) [1368]
-*** (1.4.1) Message type counts: 3 fatal, 1 warn, 0 error, 47 info, 1 fixes
+*** (1.4.1) Message type counts: 2 fatal, 2 warn, 0 error, 48 info, 1 fixes

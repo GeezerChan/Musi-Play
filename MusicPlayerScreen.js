@@ -1,77 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
-import { request, PERMISSIONS } from 'react-native-permissions';
-import DocumentPicker from 'react-native-document-picker';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Sound from 'react-native-sound';
 
 const MusicPlayer = ({ navigation }) => {
   const [showPermissionDenied, setShowPermissionDenied] = useState(false);
 
-  useEffect(() => {
-    requestStoragePermission();
-  }, []);
+  // Enable playback in silence mode
+  Sound.setCategory('Playback');
 
-  const requestStoragePermission = async () => {
-    try {
-      const result = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+  const audioFiles = [
+    require('./assets/_Nisekoi_OST_1_mp3.wav'),
+    require('./assets/_Nisekoi_OST_2_mp3.wav'),
+    require('./assets/_Nisekoi_OST_3_mp3.wav'),
+    require('./assets/_Nisekoi_OST_5_mp3.wav'),
+    require('./assets/Grimgar_Ost.mp3'),
+  ];
 
-      if (result === 'granted') {
-        // Permission granted, proceed with the operation
-        loadSongs();
-      } else if (result === 'never_ask_again') {
-        // User denied permission with "Never ask again"
-        setShowPermissionDenied(true);
-      } else {
-        // User denied permission
-        setShowPermissionDenied(true);
-      }
-    } catch (error) {
-      console.error('Error requesting permission', error);
+  const sounds = audioFiles.map((audioFile, index) => new Sound(audioFile, (error) => {
+    if (error) {
+      console.error(`Failed to load sound ${index + 1}`, error);
       setShowPermissionDenied(true);
     }
-  };
+  }));
 
-  const loadSongs = async () => {
-    try {
-      const result = await DocumentPicker.pick({
-        type: [DocumentPicker.types.audio],
-      });
-
-      console.log('Document Picker Result:', result);
-
-      if (result.uri) {
-        const allowedExtensions = ['.mp3', '.wav'];
-        const fileExtension =
-          result.name && result.name.lastIndexOf('.') !== -1
-            ? result.name.slice(result.name.lastIndexOf('.')).toLowerCase()
-            : '';
-
-        console.log('File Extension:', fileExtension);
-
-        if (!allowedExtensions.includes(fileExtension)) {
-          console.log('Invalid file type selected');
-          return;
-        }
-
-        const sound = new Sound(result.uri, '', (error) => {
-          if (error) {
-            console.error('Error loading sound', error);
-            setShowPermissionDenied(true);
-          } else {
-            sound.play(() => sound.release());
-          }
-        });
+  const playMusic = (index) => {
+    console.log(`Playing music ${index + 1}`);
+    sounds[index].play((success) => {
+      if (success) {
+        console.log(`Music ${index + 1} playback successful`);
       } else {
-        console.log('No valid document picked');
+        console.error(`Failed to play music ${index + 1}`);
       }
-    } catch (error) {
-      if (DocumentPicker.isCancel(error)) {
-        console.log('Document picker cancelled');
-      } else {
-        console.error('Error picking document', error);
-        setShowPermissionDenied(true);
-      }
-    }
+    });
   };
 
   return (
@@ -80,9 +40,15 @@ const MusicPlayer = ({ navigation }) => {
         <Text style={styles.buttonText}>BACK</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loadSongsButton} onPress={loadSongs}>
-        <Text style={styles.buttonText}>Load Songs</Text>
-      </TouchableOpacity>
+      {audioFiles.map((_, index) => (
+        <TouchableOpacity
+          key={index}
+          style={styles.playMusicButton}
+          onPress={() => playMusic(index)}
+        >
+          <Text style={styles.buttonText}>Play Music {index + 1}</Text>
+        </TouchableOpacity>
+      ))}
 
       {showPermissionDenied && (
         <Text style={styles.permissionDeniedText}>
@@ -107,7 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
   },
-  loadSongsButton: {
+  playMusicButton: {
     backgroundColor: '#2ecc71',  // Change to green
     paddingVertical: 10,
     paddingHorizontal: 20,
